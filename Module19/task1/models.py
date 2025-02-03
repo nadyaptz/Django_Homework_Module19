@@ -1,12 +1,19 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 
 # Create your models here.
 
 class Buyer(models.Model):
-    username = models.CharField(max_length=200)  # логин покупателя
+    username = models.CharField(max_length=200, unique=True)  # Логин покупателя (уникальный)
+    password = models.CharField(max_length=128, default='password')  # Храним зашифрованный пароль
     balance = models.DecimalField(max_digits=10, decimal_places=2)  # Баланс
     age = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        # Хешируем пароль перед сохранением
+        self.password = make_password(self.password)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username

@@ -17,6 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from task1.views import main_page, anchor, book, info, menu
+from task1.views import sign_up_by_html, sign_up_by_django, success_page
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', anchor),
+    path('lakehouse/', main_page),
+    path('lakehouse/book', book),
+    path('lakehouse/info', info),
+    path('lakehouse/menu', menu),
+    path('sign_up_by_html', sign_up_by_html),
+    path('sign_up_by_django', sign_up_by_django),
+    path('success/', success_page, name='success_page'),
 ]
