@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from task1.views import main_page, anchor, book, info, menu
-from task1.views import sign_up_by_html, sign_up_by_django, success_page
+from task1.views import sign_up_by_html, sign_up_by_django, success_page, news_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('sign_up_by_html', sign_up_by_html),
     path('sign_up_by_django', sign_up_by_django),
     path('success/', success_page, name='success_page'),
+    path('lakehouse/news', news_page),
 ]

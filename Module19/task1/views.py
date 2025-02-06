@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import UserRegistrationForm, BuyerRegistrationForm
 from .models import *
+from django.core.paginator import Paginator
 
 # python manage.py runserver
 
@@ -97,3 +98,11 @@ def sign_up_by_django(request):
 
 def success_page(request):
     return render(request, 'successful_registration.html')
+
+def news_page(request):
+    description = 'Наши новости'
+    news = News.objects.all().order_by('-date')
+    paginator = Paginator(news, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'news.html', {'page_obj': page_obj,'description': description})
