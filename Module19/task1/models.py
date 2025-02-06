@@ -10,6 +10,10 @@ class Buyer(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2)  # Баланс
     age = models.IntegerField()
 
+    class Meta:
+        verbose_name='Покупатель'
+        verbose_name_plural = 'Покупатели'
+
     def save(self, *args, **kwargs):
         # Хешируем пароль перед сохранением
         self.password = make_password(self.password)
@@ -26,6 +30,9 @@ class Game(models.Model):
     description = models.TextField()
     age_limited = models.BooleanField(default=False)
     buyer = models.ManyToManyField(Buyer, related_name='buyers')
-
+    class Meta:
+        verbose_name='Игра'
+        verbose_name_plural = 'Игры'
+        ordering = ['-cost'] # сортировка по цене
     def __str__(self):
         return self.title
